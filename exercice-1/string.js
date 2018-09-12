@@ -1,4 +1,9 @@
 //Commit: [done] exercice 1
+String.prototype.replaceAll = function(search, replacement) {
+	    var target = this;
+	    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 
 function isString(mot){
 	if(typeof mot === 'string'){
@@ -103,27 +108,48 @@ console.log("prop_access -> " +prop_access(toto, "animal.type.name"));
 
 function leet(mot){
 	isString(mot);
- 	leetArray = { a: "4", e:"3", i:"1", o:"0", u:"(_)", y:"7"}
  	mot = mot.toLowerCase();
+ 	leetArray = { a: "4", e:"3", i:"1", o:"0", u:"(_)", y:"7"}
+ 	var Newmot = "";
 
  	for(x in leetArray){
- 		console.log(x);
+ 		 mot = mot.replaceAll(x, leetArray[x]);
  	}
-
 
  	return mot;
 }
 console.log("leet -> " +leet("aNimal type name"));
 
 
-function verlan(){
-
+function verlan(mot){
+	isString(mot);
+	return mot.split("").reverse().join("").split(" ").reverse().join(" ");
 }
+console.log("verlan -> " +verlan("Hello world"));
 
-function yoda(){
-
+function yoda(mot){
+	isString(mot);
+	return mot.split(' ').reverse().join(" ");
 }
+console.log("yoda -> " +yoda("Hello world"));
 
-function vig(){
+function vig(mot, key) {
+	isString(mot);
+	isString(key);
 
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    key = key.toUpperCase();
+    let letters = mot.toUpperCase().split("");
+    let count = 0;
+    letters = letters.map((letter) => {
+        if (alphabet.includes(letter)) {
+            letter = String.fromCharCode((letter.charCodeAt(0) - 65 + key[count % key.length].charCodeAt(0) - 65) % 26 + 65);
+            count++;
+        }
+
+        return letter;
+    });
+
+    return letters.join("").toLowerCase();
 }
+console.log("vig -> " +vig("Hello world", '12'));
